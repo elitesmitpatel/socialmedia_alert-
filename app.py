@@ -29,6 +29,7 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
+scheduler = None
 
 def init_db():
     conn = sqlite3.connect(DB_NAME)
@@ -60,7 +61,10 @@ def get_saved_post():
     cur.execute("SELECT last_post_id FROM state WHERE id=1")
     row = cur.fetchone()
 
-    conn.close()
+    try:
+        conn.close()
+    except Exception:
+        pass
 
     return row[0] if row else ""
 
@@ -74,7 +78,10 @@ def save_post(post_id):
     )
 
     conn.commit()
-    conn.close()
+    try:
+        conn.close()
+    except Exception:
+        pass
 
     logger.info(f"Saved post ID to database: {post_id}")
 
