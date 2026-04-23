@@ -200,22 +200,22 @@ def check_new_post():
 
         if latest["post_id"] != saved_id:
             message = (
-                f"🚨 <b>New Post from Virat Kohli!</b>\n"
+                f"<b>New Post from Virat Kohli!</b>\n"
                 f"\n"
-                f"📸 <b>Post ID:</b> {latest['post_id']}\n"
-                f"🔗 <a href=\"{latest['url']}\">View on Instagram</a>\n"
+                f"<b>Post ID:</b> {latest['post_id']}\n"
+                f"<a href=\"{latest['url']}\">View on Instagram</a>\n"
                 f"\n"
-                f"⏰ Checked just now"
+                f"Checked just now"
             )
 
             send_message(message)
 
             save_post(latest["post_id"])
 
-            logger.info("🚨 NEW POST — Alert sent!")
+            logger.info("NEW POST -- Alert sent!")
 
         else:
-            logger.info("No new post — same as last check")
+            logger.info("No new post -- same as last check")
 
     except Exception as e:
         logger.error(f"Error during check: {e}", exc_info=True)
@@ -239,10 +239,10 @@ if __name__ == "__main__":
         logger.error("  export TELEGRAM_CHAT_ID='your_chat_id_here'")
         sys.exit(1)
 
-    logger.info("Configuration validated ✓")
+    logger.info("Configuration validated")
 
     init_db()
-    logger.info("Database initialized ✓")
+    logger.info("Database initialized")
 
     logger.info("Running initial check...")
     check_new_post()

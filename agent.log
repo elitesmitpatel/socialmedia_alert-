@@ -1,0 +1,19 @@
+2026-04-24 00:17:06,597 [ERROR] TELEGRAM_BOT_TOKEN not set!
+2026-04-24 00:17:06,770 [ERROR] Set it as an environment variable:
+2026-04-24 00:17:06,771 [ERROR]   export TELEGRAM_BOT_TOKEN='your_token_here'
+2026-04-24 00:17:14,554 [INFO] Database initialized with empty state
+2026-04-24 00:17:14,563 [INFO] Running initial check...
+2026-04-24 00:17:14,563 [INFO] ==================================================
+2026-04-24 00:17:14,563 [INFO] Starting new post check...
+2026-04-24 00:17:17,549 [INFO] Navigating to https://www.instagram.com/virat.kohli/
+2026-04-24 00:17:37,545 [INFO] No login popup found (or already dismissed)
+2026-04-24 00:17:37,646 [INFO] Found latest post: DVuz3sDCIGe
+2026-04-24 00:17:37,646 [INFO] Post URL: https://www.instagram.com/virat.kohli/reel/DVuz3sDCIGe/
+2026-04-24 00:17:37,671 [INFO] Saved ID: '' | Latest ID: 'DVuz3sDCIGe'
+2026-04-24 00:17:38,887 [ERROR] Telegram API error: 404 - {"ok":false,"error_code":404,"description":"Not Found"}
+2026-04-24 00:17:38,898 [INFO] Saved post ID to database: DVuz3sDCIGe
+2026-04-24 00:17:38,954 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-24 00:17:38,954 [INFO] Scheduler started — checking every 15 minutes
+2026-04-24 00:17:38,954 [INFO] Agent is running... Press Ctrl+C to stop
+2026-04-24 00:17:38,954 [INFO] Added job "Instagram Post Checker" to job store "default"
+2026-04-24 00:17:38,954 [INFO] Scheduler started
