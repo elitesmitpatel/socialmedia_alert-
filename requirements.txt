@@ -1,3 +1,17 @@
+# Instagram Alert Bot - Dependencies
+# ====================================
+# Install all dependencies with: pip install -r requirements.txt
+# After installing, run: playwright install chromium
+
+# Core scraping library - automates browser to scrape Instagram
+# Playwright is similar to Selenium but faster and more reliable
 playwright==1.49.1
+
+# HTTP library - used to send messages to Telegram API
 requests==2.32.3
+
+# Advanced Python Scheduler - runs the check function periodically
+# Allows scheduling tasks at specific intervals (e.g., every 15 minutes)
 APScheduler==3.10.4
+
+# Note: SQLite3 is built into Python, no need to install separately
