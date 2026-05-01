@@ -40,9 +40,17 @@ INSTAGRAM_URL = "https://www.instagram.com/thetatvaindia/"
 # This helps us detect when a new post is published
 DB_NAME = "state.db"
 
-# How often to check for new posts (in minutes)
-# Lower = more responsive, Higher = less resource usage
-CHECK_INTERVAL_MINUTES = 15
+# =============================================================================
+# SCHEDULER CONFIGURATION
+# =============================================================================
+
+# Run every 2 hours starting from 9 AM till 11 PM IST
+# Indian Standard Time (IST) = UTC+5:30
+# Cron format: hour (0-23), minute (0-59)
+# We use APScheduler's cron trigger for time-based scheduling
+CHECK_START_HOUR = 9   # Start checking from 9 AM
+CHECK_END_HOUR = 23    # Stop checking after 11 PM (23:00)
+CHECK_INTERVAL_HOURS = 2  # Run every 2 hours
 
 # Browser timeout settings (in seconds)
 TIMEOUT_SECONDS = 60          # Maximum time to wait for page load
@@ -409,20 +417,22 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, handle_shutdown)   # Ctrl+C
     signal.signal(signal.SIGTERM, handle_shutdown)  # Termination signal
 
-    # Create and configure the scheduler
-    scheduler = BlockingScheduler()
+# Create and configure the scheduler
+scheduler = BlockingScheduler(timezone="Asia/Kolkata")
 
-    # Add the check job to run periodically
-    scheduler.add_job(
-        check_new_post,              # Function to run
-        'interval',                  # Run at fixed intervals
-        minutes=CHECK_INTERVAL_MINUTES,  # Interval duration
-        id='post_checker',           # Unique job ID
-        name='Instagram Post Checker',  # Job name for debugging
-    )
+# Add the check job to run every 2 hours from 9 AM to 11 PM IST
+# Using cron trigger for time-based scheduling
+scheduler.add_job(
+    check_new_post,              # Function to run
+    'cron',                      # Run at specific times (cron-style)
+    hour=range(CHECK_START_HOUR, CHECK_END_HOUR),  # Hours: 9, 10, 11, ..., 22
+    minute=0,                    # At minute 0 of each hour
+    id='post_checker',           # Unique job ID
+    name='Instagram Post Checker',  # Job name for debugging
+)
 
-    logger.info(f"Scheduler started — checking every {CHECK_INTERVAL_MINUTES} minutes")
-    logger.info("Agent is running... Press Ctrl+C to stop")
+logger.info(f"Scheduler started — checking every {CHECK_INTERVAL_HOURS} hours from {CHECK_START_HOUR}:00 to {CHECK_END_HOUR}:00 IST")
+logger.info("Agent is running... Press Ctrl+C to stop")
 
     # Start the scheduler (this blocks until stopped)
     scheduler.start()
