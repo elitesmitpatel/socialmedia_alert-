@@ -15,13 +15,26 @@ Customization:
 """
 
 import os
+import requests
 
-# Set dummy environment variables (required for the import, not actually used)
-os.environ['TELEGRAM_BOT_TOKEN'] = 'test'
-os.environ['TELEGRAM_CHAT_ID'] = 'test'
+# Telegram credentials
+BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "8258348317:AAEIomQfI_k9yn1HwDX2DoTBHHseS_lRYdA")
+CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")  # Set this - numeric ID or @username
 
-# Import Playwright for browser automation
 from playwright.sync_api import sync_playwright
+
+def send_message(text):
+    """Send a message via Telegram Bot API"""
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+    data = {"chat_id": CHAT_ID, "text": text, "parse_mode": "HTML"}
+    try:
+        resp = requests.post(url, data=data, timeout=10)
+        resp.raise_for_status()
+        print(f"Telegram message sent successfully to {CHAT_ID}")
+        return True
+    except Exception as e:
+        print(f"Error sending to Telegram: {e}")
+        return False
 
 # =============================================================================
 # CONFIGURATION - Change these values as needed
@@ -137,11 +150,18 @@ def get_latest_posts(count=3):
 # =============================================================================
 
 if __name__ == "__main__":
-    # Fetch the latest posts
     posts = get_latest_posts(POST_COUNT)
 
-    # Display results
     if posts:
+        msg = f"<b>Last {len(posts)} posts from @rvcjinsta:</b>\n\n"
+        for i, p in enumerate(posts, 1):
+            msg += f"{i}. <a href='{p['url']}'>{p['post_id']}</a>\n\n"
+
+        print('--- Posting to Telegram ---')
+        send_message(msg)
+
+        print()
+        print('--- Local output ---')
         print(f'Last {len(posts)} posts from @{INSTAGRAM_PROFILE}:')
         print('=' * 40)
         for i, p in enumerate(posts, 1):
