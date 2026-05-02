@@ -34,7 +34,7 @@ BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
 
 # Instagram profile to monitor (change this to any Instagram username)
-INSTAGRAM_URL = "https://www.instagram.com/thetatvaindia/"
+INSTAGRAM_URL = "https://www.instagram.com/rvcjinsta/"
 
 # Database file to store the last checked post ID
 # This helps us detect when a new post is published

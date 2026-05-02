@@ -28,7 +28,7 @@ from playwright.sync_api import sync_playwright
 # =============================================================================
 
 # Instagram username to fetch posts from (without @)
-INSTAGRAM_PROFILE = "thetatvaindia"
+INSTAGRAM_PROFILE = "rvcjinsta"
 
 # Number of recent posts to retrieve
 POST_COUNT = 3
