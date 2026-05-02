@@ -1,8 +1,6 @@
 name: Virat Kohli Post Checker
 
 on:
-  schedule:
-    - cron: '0 3,5,7,9,11,13,15,17 * * *'
   workflow_dispatch:
 
 jobs:
